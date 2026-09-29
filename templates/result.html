@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Analysis Result</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            font-family: Arial, sans-serif;
+            background: #eef4ff;
+            color: #172554;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1d4ed8;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: #f8fafc;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            border: 1px solid #dbeafe;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #1e3a8a;
+        }
+
+        .category {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .confidence {
+            font-size: 18px;
+            color: #475569;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 8px 14px;
+            border-radius: 20px;
+        }
+
+        .career {
+            background: white;
+            border: 1px solid #bfdbfe;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .button {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0;
+            padding: 13px 25px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #1d4ed8;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🤖 Resume Analysis Result</h1>
+
+    <div class="card">
+        <h2>Predicted Career Category</h2>
+
+        <div class="category">
+            {{ category }}
+        </div>
+
+        {% if confidence is not none %}
+        <p class="confidence">
+            AI Confidence: {{ confidence }}%
+        </p>
+        {% endif %}
+    </div>
+
+
+    <div class="card">
+
+        <h2>📊 Resume Information</h2>
+
+        <p>
+            <strong>Word Count:</strong>
+            {{ word_count }}
+        </p>
+
+        <p>
+            <strong>Skills Detected:</strong>
+            {{ skills|length }}
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>🛠️ Detected Skills</h2>
+
+        {% if skills %}
+
+        <div class="skills">
+
+            {% for skill in skills %}
+
+            <div class="skill">
+                {{ skill }}
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <p>No matching technical skills detected.</p>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>🎯 Career Recommendations</h2>
+
+        {% if careers %}
+
+            {% for career in careers %}
+
+            <div class="career">
+                💼 {{ career }}
+            </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No career recommendations available.</p>
+
+        {% endif %}
+
+    </div>
+
+
+    <a href="/" class="button">
+        🔄 Analyze Another Resume
+    </a>
+
+</div>
+
+</body>
+
+</html>

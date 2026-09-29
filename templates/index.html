@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Resume Analyzer</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #eef4ff, #dce9ff);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 45px;
+
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+
+            text-align: center;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+
+            margin: 0 auto 20px;
+
+            border-radius: 50%;
+
+            background: #2563eb;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: white;
+
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: #172554;
+
+            font-size: 34px;
+
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            color: #64748b;
+
+            font-size: 17px;
+
+            margin-bottom: 35px;
+
+            line-height: 1.6;
+        }
+
+        .upload-box {
+            border: 2px dashed #93c5fd;
+
+            background: #f8fbff;
+
+            border-radius: 15px;
+
+            padding: 40px 25px;
+
+            margin-bottom: 25px;
+
+            transition: 0.3s;
+        }
+
+        .upload-box:hover {
+            border-color: #2563eb;
+
+            background: #eff6ff;
+        }
+
+        .upload-icon {
+            font-size: 50px;
+
+            margin-bottom: 15px;
+        }
+
+        .upload-box h2 {
+            color: #1e3a8a;
+
+            margin-bottom: 10px;
+        }
+
+        .upload-box p {
+            color: #64748b;
+
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-label {
+            display: inline-block;
+
+            padding: 13px 25px;
+
+            background: #2563eb;
+
+            color: white;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .file-label:hover {
+            background: #1d4ed8;
+        }
+
+        #file-name {
+            margin-top: 15px;
+
+            color: #334155;
+
+            font-size: 14px;
+        }
+
+        .analyze-btn {
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #172554;
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .analyze-btn:hover {
+            background: #1e40af;
+        }
+
+        .analyze-btn:disabled {
+            background: #94a3b8;
+
+            cursor: not-allowed;
+        }
+
+        .features {
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 15px;
+
+            margin-top: 35px;
+        }
+
+        .feature {
+            background: #f8fafc;
+
+            padding: 20px 10px;
+
+            border-radius: 10px;
+        }
+
+        .feature-icon {
+            font-size: 25px;
+
+            margin-bottom: 8px;
+        }
+
+        .feature h3 {
+            color: #1e293b;
+
+            font-size: 15px;
+
+            margin-bottom: 5px;
+        }
+
+        .feature p {
+            color: #64748b;
+
+            font-size: 12px;
+
+            line-height: 1.4;
+        }
+
+        .footer {
+            margin-top: 30px;
+
+            color: #94a3b8;
+
+            font-size: 13px;
+        }
+
+        @media (max-width: 650px) {
+
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 27px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <!-- Logo -->
+
+        <div class="logo">
+            AI
+        </div>
+
+
+        <!-- Heading -->
+
+        <h1>
+            AI Resume Analyzer
+        </h1>
+
+        <p class="subtitle">
+            Upload your resume and let Artificial Intelligence
+            analyze your profile, identify your skills,
+            predict your career category, and recommend
+            suitable career paths.
+        </p>
+
+
+        <!-- Upload Form -->
+
+        <form
+            action="/analyze"
+            method="POST"
+            enctype="multipart/form-data"
+        >
+
+            <div class="upload-box">
+
+                <div class="upload-icon">
+                    📄
+                </div>
+
+                <h2>
+                    Upload Your Resume
+                </h2>
+
+                <p>
+                    Select your resume in PDF format
+                </p>
+
+
+                <!-- File Input -->
+
+                <label
+                    for="resume"
+                    class="file-label"
+                >
+                    Choose Resume
+                </label>
+
+                <input
+                    type="file"
+                    id="resume"
+                    name="resume"
+                    accept=".pdf"
+                    required
+                >
+
+
+                <div id="file-name">
+                    No file selected
+                </div>
+
+            </div>
+
+
+            <!-- Analyze Button -->
+
+            <button
+                type="submit"
+                class="analyze-btn"
+                id="analyzeButton"
+                disabled
+            >
+                🔍 Analyze Resume
+            </button>
+
+        </form>
+
+
+        <!-- Features -->
+
+        <div class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🤖
+                </div>
+
+                <h3>
+                    AI Analysis
+                </h3>
+
+                <p>
+                    Machine learning analyzes
+                    your resume content.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🛠️
+                </div>
+
+                <h3>
+                    Skill Detection
+                </h3>
+
+                <p>
+                    Identifies technical skills
+                    from your resume.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Career Recommendation
+                </h3>
+
+                <p>
+                    Suggests career paths based
+                    on your profile.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <div class="footer">
+
+            AI-Based Resume Analyzer & Career Recommendation System
+
+        </div>
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+    <script>
+
+        const resumeInput =
+            document.getElementById("resume");
+
+        const fileName =
+            document.getElementById("file-name");
+
+        const analyzeButton =
+            document.getElementById("analyzeButton");
+
+
+        resumeInput.addEventListener(
+            "change",
+            function () {
+
+                if (this.files.length > 0) {
+
+                    const file = this.files[0];
+
+                    fileName.textContent =
+                        "Selected file: " + file.name;
+
+                    analyzeButton.disabled = false;
+
+                } else {
+
+                    fileName.textContent =
+                        "No file selected";
+
+                    analyzeButton.disabled = true;
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
+
